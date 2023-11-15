@@ -34,6 +34,7 @@ static PyObject *get_cc_wrapper(PyObject *self, PyObject *args)
     // Call the get_cc function
     long long int *ind_a;
     long long int *ind_b;
+    //int count = get_cc(tagsA, tagsB, sizeA, sizeB, tcc, &ind_a, &ind_b);
     int count = get_cc(tagsA, tagsB, sizeA, sizeB, tcc, &ind_a, &ind_b);
 
     // Convert indices array to Python object

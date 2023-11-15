@@ -28,7 +28,7 @@ int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int
     return counts;
 }
 
-int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int *inds_a, long long int  *inds_b)
+int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int **inds_a, long long int  **inds_b)
 {
     int counts = 0;
     int iA = 0;
@@ -42,8 +42,8 @@ int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, in
     {
         if (llabs(tagsA[iA] - tagsB[iB]) <= tcc)
         {
-            inds_a[*counts] = iA
-            inds_b[*counts] = iB
+            *inds_a[counts] = iA;
+            *inds_b[counts] = iB;
             counts++;
             iA++;
             iB++;
@@ -60,8 +60,8 @@ int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, in
     }
 
     // Resize the array to the actual count
-    *inds_a = realloc(*inds_a, *counts * sizeof(long long int));
-    *inds_b = realloc(*inds_b, *counts * sizeof(long long int));
+    *inds_a = realloc(*inds_a, counts * sizeof(long long int));
+    *inds_b = realloc(*inds_b, counts * sizeof(long long int));
 
     return counts;
 }

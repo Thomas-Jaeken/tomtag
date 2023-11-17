@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "correlation.h"
 
 int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc)
@@ -28,7 +29,7 @@ int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int
     return counts;
 }
 
-int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int **inds_a, long long int  **inds_b)
+int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int **inds_a, long long int **inds_b)
 {
     int counts = 0;
     int iA = 0;
@@ -47,7 +48,6 @@ int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, in
             counts++;
             iA++;
             iB++;
-            
         }
         else if (tagsA[iA] < tagsB[iB])
         {
@@ -64,4 +64,24 @@ int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, in
     *inds_b = realloc(*inds_b, counts * sizeof(long long int));
 
     return counts;
+}
+
+void histogram(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, int *hist_data, long long int *delaysweep, long long int sizeDelay)
+{
+    //*hist_data = malloc((sizeDelay) * sizeof(int));
+
+    int i = 0;
+    for (i = 0; i < sizeDelay; i++)
+    {
+        long long int *temp_B_shifted = malloc((sizeB) * sizeof(long long int));
+        int j = 0;
+        for (j = 0; j < sizeB; j++)
+        {
+            temp_B_shifted[j] = tagsB[j] + delaysweep[i];
+        }
+        hist_data[i] = count(tagsA, temp_B_shifted, sizeA, sizeB, tcc);
+        free(temp_B_shifted);
+    }
+
+    // the output is written into the hist_data variable
 }

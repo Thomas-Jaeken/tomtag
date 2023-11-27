@@ -13,6 +13,6 @@ void findDelay(int *channels, const long long int *tags, long long int sizeTags,
 
 void trace(const long long int *tags, long long int sizeTags, int binsize, int *trace);
 
-void synchronise(long long int *tags, const long long int *synctags, int sizeTags, int sizeSyncTags, long long int syncPeriod, float Precision);
+void synchronise(long long int *tags, const long long int *synctags, int sizeTags, int sizeSyncTags, float syncPeriod, double Precision);
 
 #endif // CORRELATION_H

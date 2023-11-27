@@ -197,10 +197,11 @@ static PyObject *trace_wrapper(PyObject *self, PyObject *args)
 static PyObject *sync_wrapper(PyObject *self, PyObject *args)
 {
     PyObject *tags_obj, *synctags_obj;
-    long long int sizeTags, sizeSyncTags, syncPeriod;
-    float Precision;
+    long long int sizeTags, sizeSyncTags;
+    float syncPeriod;
+    double Precision;
 
-    if (!PyArg_ParseTuple(args, "OOLLLf", &tags_obj, &synctags_obj, &sizeTags, &sizeSyncTags, &syncPeriod, &Precision))
+    if (!PyArg_ParseTuple(args, "OOLLfd", &tags_obj, &synctags_obj, &sizeTags, &sizeSyncTags, &syncPeriod, &Precision))
         return NULL;
 
     long long int *tags = (long long int *)PyArray_DATA(tags_obj);

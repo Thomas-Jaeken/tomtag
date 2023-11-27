@@ -162,13 +162,13 @@ void trace(const long long int *tags, long long int sizeTags, int binsize, int *
     // result in trace.
 }
 
-void synchronise(long long int *tags, const long long int *synctags, int sizeTags, int sizeSyncTags, long long int syncPeriod, float Precision)
+void synchronise(long long int *tags, const long long int *synctags, int sizeTags, int sizeSyncTags, float syncPeriod, double Precision)
 {
     int i;
     int j = 0;
     for(i=0; i<sizeSyncTags-1;i++)
     {   
-        while(tags[j]<synctags[i+i])
+        while(j<sizeTags && tags[j]<synctags[i+1])
         {
             tags[j] = tags[j] - synctags[i] + (int)(i * syncPeriod / Precision);
             j++;

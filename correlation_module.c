@@ -58,6 +58,49 @@ static PyObject *get_cc_wrapper(PyObject *self, PyObject *args)
     return resultTuple;
 }
 
+static PyObject *get_delays_wrapper(PyObject *self, PyObject *args)
+{
+    PyObject *tagsA_obj, *tagsB_obj;
+    int sizeA, sizeB, tcc;
+
+    if (!PyArg_ParseTuple(args, "OOiii", &tagsA_obj, &tagsB_obj, &sizeA, &sizeB, &tcc))
+        return NULL;
+
+    long long int *tagsA = (long long int *)PyArray_DATA(tagsA_obj);
+    long long int *tagsB = (long long int *)PyArray_DATA(tagsB_obj);
+
+    // Call the get_cc function
+    long long int *inds_a = (long long int *)malloc(sizeA * sizeof(long long int));
+    long long int *inds_b = (long long int *)malloc(sizeB * sizeof(long long int));
+    // int count = get_cc(tagsA, tagsB, sizeA, sizeB, tcc, &inds_a, &inds_b);
+    int count = get_cc(tagsA, tagsB, sizeA, sizeB, tcc, inds_a, inds_b);
+    
+    // pre-allocate delay memory
+    int *delays = (int *)malloc(count * sizeof(int));
+
+    // get delays between cc
+    get_delays(tagsA, tagsB, inds_a, inds_b, delays, count,tcc);
+
+
+
+    // Convert indices array to Python object
+    PyObject *delays_obj = PyList_New(count);
+    int i = 0;
+    for (i = 0; i < count; i++)
+    {
+        
+        PyList_SET_ITEM(delays_obj, i, PyLong_FromLong(delays[i]));
+        
+    }
+
+    // Free memory allocated for indices array
+    free(inds_a);
+    free(inds_b);
+    free(delays);
+
+    return delays_obj;
+}
+
 static PyObject *histogram_wrapper(PyObject *self, PyObject *args)
 {
     PyObject *tagsA_obj, *tagsB_obj, *delays_obj;
@@ -198,29 +241,28 @@ static PyObject *sync_wrapper(PyObject *self, PyObject *args)
 {
     PyObject *tags_obj, *synctags_obj;
     long long int sizeTags, sizeSyncTags;
-    float syncPeriod;
-    double Precision;
+    double syncPeriod, Precision;
 
-    if (!PyArg_ParseTuple(args, "OOLLfd", &tags_obj, &synctags_obj, &sizeTags, &sizeSyncTags, &syncPeriod, &Precision))
+    if (!PyArg_ParseTuple(args, "OOLLdd", &tags_obj, &synctags_obj, &sizeTags, &sizeSyncTags, &syncPeriod, &Precision))
         return NULL;
 
     long long int *tags = (long long int *)PyArray_DATA(tags_obj);
     long long int *syncTags = (long long int *)PyArray_DATA(synctags_obj);
 
     // Call the function
-    synchronise(tags, syncTags, sizeTags, sizeSyncTags, syncPeriod, Precision);
+    long long int *syncedTags = (long long int *)malloc(sizeTags * sizeof(long long int));
+    synchronise(tags, syncTags, sizeTags, sizeSyncTags, syncPeriod, Precision, syncedTags);
 
     // Convert outcome array to Python object
     PyObject *tags_synced_obj = PyList_New(sizeTags);
     int i = 0;
     for (i = 0; i < sizeTags; i++)
     {
-        PyList_SET_ITEM(tags_synced_obj, i, PyLong_FromLong(tags[i]));
+        PyList_SET_ITEM(tags_synced_obj, i, PyLong_FromLong(syncedTags[i]));
     }
 
     // Free memory allocated for indices array
-    free(tags);
-    free(syncTags);
+    free(syncedTags);
 
     return tags_synced_obj;
 }
@@ -228,6 +270,7 @@ static PyObject *sync_wrapper(PyObject *self, PyObject *args)
 static PyMethodDef module_methods[] = {
     {"count", count_wrapper, METH_VARARGS, "Calculate correlation"},
     {"get_cc", get_cc_wrapper, METH_VARARGS, "find correlated events"},
+    {"get_delays", get_delays_wrapper, METH_VARARGS, "find delays between correlated events"},
     {"histogram", histogram_wrapper, METH_VARARGS, "construct histogram"},
     {"double_decay", findDelay_wrapper, METH_VARARGS, "create double decay"},
     {"trickle", trickle_merge_wrapper, METH_VARARGS, "merge two arrays"},

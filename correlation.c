@@ -30,8 +30,8 @@ int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int
     return counts;
 }
 
-int minarg(int a, int b, int c, int d) {
-    int min = a;
+int minarg(long long int a, long long int b, long long int c, long long int d) {
+    long long int min = a;
     int result = 0;
 
     if (b < min) {
@@ -50,8 +50,8 @@ int minarg(int a, int b, int c, int d) {
     return result;
 }
 
-int maxOfFour(int a, int b, int c, int d) {
-    int max = a;
+long long int maxOfFour(long long int a, long long int b, long long int c, long long int d) {
+    long long int max = a;
 
     if (b > max) {
         max = b;
@@ -66,8 +66,8 @@ int maxOfFour(int a, int b, int c, int d) {
     return max;
 }
 
-int minOfFour(int a, int b, int c, int d) {
-    int min = a;
+long long int minOfFour(long long int a, long long int b, long long int c, long long int d) {
+    long long int min = a;
 
     if (b < min) {
         min = b;
@@ -82,29 +82,88 @@ int minOfFour(int a, int b, int c, int d) {
     return min;
 }
 
-int spread(int a, int b, int c, int d)
+long long int spread(long long int a, long long int b, long long int c, long long int d)
 {
-    return maxOfFour(a, b, c, d) - minOfFour(a, b, c, d);
+    long long int result = maxOfFour(a, b, c, d) - minOfFour(a, b, c, d);
+    return result;
 }
 
 int count_fourfolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc)
 {
     int counts = 0;
-    int i[4] = {0,0,0,0};
+    int iA = 0;
+    int iB = 0;
+    int iC = 0;
+    int iD = 0;
 
-    while (i[0] < sizeA && i[1] < sizeB)
+    while (iA < sizeA && iB < sizeB && iC < sizeC && iD < sizeD)
     {
-        if (spread(tagsA[i[0]],tagsB[i[1]],tagsC[i[2]],tagsD[i[3]]) <= tcc)  // the distance between the highest and lowest is tcc (this way the bin is the same width as for 2folds)
+        if (spread(tagsA[iA],tagsB[iB],tagsC[iC],tagsD[iD]) <= tcc)  // the distance between the highest and lowest is tcc (this way the bin is the same width as for 2folds)
         {
             counts++;
-            i[0]++;
-            i[1]++;
-            i[2]++;
-            i[3]++;
+            iA++;
+            iB++;
+            iC++;
+            iD++;
         }
         else  // we increase the trailing tag
         {
-            i[minarg(tagsA[i[0]],tagsB[i[1]],tagsC[i[2]],tagsD[i[3]])]++;
+            int i = minarg(tagsA[iA],tagsB[iB],tagsC[iC],tagsD[iD]);
+            if(i==0){
+                iA++;
+            }
+            else if(i==1){
+                iB++;
+            }
+            else if(i==2){
+                iC++;
+            }
+            else if(i==3){
+                iD++;
+            }
+        }
+    }
+
+    return counts;
+}
+
+int get_fourfolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c, long long int *inds_d)
+{
+    int counts = 0;
+    int iA = 0;
+    int iB = 0;
+    int iC = 0;
+    int iD = 0;
+
+    while (iA < sizeA && iB < sizeB && iC < sizeC && iD < sizeD)
+    {
+        if (spread(tagsA[iA],tagsB[iB],tagsC[iC],tagsD[iD]) <= tcc)  // the distance between the highest and lowest is tcc (this way the bin is the same width as for 2folds)
+        {
+            inds_a[counts] = iA;
+            inds_b[counts] = iB;
+            inds_c[counts] = iC;
+            inds_d[counts] = iD;
+            counts++;
+            iA++;
+            iB++;
+            iC++;
+            iD++;
+        }
+        else  // we increase the trailing tag
+        {
+            int i = minarg(tagsA[iA],tagsB[iB],tagsC[iC],tagsD[iD]);
+            if(i==0){
+                iA++;
+            }
+            else if(i==1){
+                iB++;
+            }
+            else if(i==2){
+                iC++;
+            }
+            else if(i==3){
+                iD++;
+            }
         }
     }
 
@@ -148,7 +207,6 @@ void get_delays(const long long int *tagsA, const long long int *tagsB, long lon
         
         delays[i] = tagsA[inds_a[i]] - tagsB[inds_b[i]];
          
-        
     }
     
     // the output is written into the delays variable

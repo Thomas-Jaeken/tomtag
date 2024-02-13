@@ -101,6 +101,54 @@ static PyObject *get_delays_wrapper(PyObject *self, PyObject *args)
     return delays_obj;
 }
 
+static PyObject *get_fourfolds_delays_wrapper(PyObject *self, PyObject *args)
+{
+    PyObject *tagsA_obj, *tagsB_obj, *tagsC_obj, *tagsD_obj;
+    int sizeA, sizeB, sizeC, sizeD, tcc;
+
+    if (!PyArg_ParseTuple(args, "OOOOiiiii", &tagsA_obj, &tagsB_obj, &tagsC_obj, &tagsD_obj, &sizeA, &sizeB, &sizeC, &sizeD, &tcc))
+        return NULL;
+
+    long long int *tagsA = (long long int *)PyArray_DATA(tagsA_obj);
+    long long int *tagsB = (long long int *)PyArray_DATA(tagsB_obj);
+    long long int *tagsC = (long long int *)PyArray_DATA(tagsC_obj);
+    long long int *tagsD = (long long int *)PyArray_DATA(tagsD_obj);
+
+    // Call the get_cc function
+    long long int *inds_a = (long long int *)malloc(sizeA * sizeof(long long int));
+    long long int *inds_b = (long long int *)malloc(sizeB * sizeof(long long int));
+    long long int *inds_c = (long long int *)malloc(sizeC * sizeof(long long int));
+    long long int *inds_d = (long long int *)malloc(sizeD * sizeof(long long int));
+    // int count = get_cc(tagsA, tagsB, sizeA, sizeB, tcc, &inds_a, &inds_b);
+    int count = get_fourfolds(tagsA, tagsB, tagsC, tagsD, sizeA, sizeB, sizeC, sizeD, tcc, inds_a, inds_b, inds_c, inds_d);
+    
+    // pre-allocate delay memory
+    int *delays = (int *)malloc(count * sizeof(int));
+
+    // get delays between first and last channel 
+    // if you want to see different ones, just reorder the inputs.
+    get_delays(tagsA, tagsD, inds_a, inds_d, delays, count, tcc);
+
+    // Convert indices array to Python object
+    PyObject *delays_obj = PyList_New(count);
+    int i = 0;
+    for (i = 0; i < count; i++)
+    {
+        
+        PyList_SET_ITEM(delays_obj, i, PyLong_FromLong(delays[i]));
+        
+    }
+
+    // Free memory allocated for indices array
+    free(inds_a);
+    free(inds_b);
+    free(inds_c);
+    free(inds_d);
+    free(delays);
+
+    return delays_obj;
+}
+
 static PyObject *histogram_wrapper(PyObject *self, PyObject *args)
 {
     PyObject *tagsA_obj, *tagsB_obj, *delays_obj;
@@ -270,6 +318,7 @@ static PyObject *sync_wrapper(PyObject *self, PyObject *args)
 static PyMethodDef module_methods[] = {
     {"count", count_wrapper, METH_VARARGS, "Calculate correlation"},
     {"get_cc", get_cc_wrapper, METH_VARARGS, "find correlated events"},
+    {"get_fourfold_delays", get_fourfolds_delays_wrapper, METH_VARARGS, "find delays between correlated events post selected on fourfolds"},
     {"get_delays", get_delays_wrapper, METH_VARARGS, "find delays between correlated events"},
     {"histogram", histogram_wrapper, METH_VARARGS, "construct histogram"},
     {"double_decay", findDelay_wrapper, METH_VARARGS, "create double decay"},

@@ -3,15 +3,17 @@
 
 int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc);
 
-int minarg(int a, int b, int c, int d);
+int minarg(long long int a, long long int b, long long int c, long long int d);
 
-int maxOfFour(int a, int b, int c, int d);
+long long int maxOfFour(long long int a, long long int b, long long int c, long long int d);
 
-int minOfFour(int a, int b, int c, int d);
+long long int minOfFour(long long int a, long long int b, long long int c, long long int d);
 
-int spread(int a, int b, int c, int d);
+long long int spread(long long int a, long long int b, long long int c, long long int d);
 
 int count_fourfolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc);
+
+int get_fourfolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c, long long int *inds_d);
 
 int get_cc(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int *inds_a, long long int *inds_b);
 

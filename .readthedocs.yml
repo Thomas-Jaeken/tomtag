@@ -1,0 +1,9 @@
+version: 2
+
+# Specify the build environment
+sphinx:
+  configuration: docs/conf.py
+
+# Define the Python version and install dependencies
+python:
+  version: 3.11

@@ -5,5 +5,7 @@ extensions = [
 
 # Configuration options for sphinx_c_autodoc
 sphinx_c_autodoc_config = {
-    "c_source": ["path/to/your/c/source"],
+    "c_source": ["."],
 }
+
+master_doc='index'

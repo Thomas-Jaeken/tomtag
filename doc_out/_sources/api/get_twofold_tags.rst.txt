@@ -15,8 +15,8 @@ tomtag.get_twofold_tags
     <div style="display: flex;
     justify-content: space-between; 
     width: 100%;">
-    <div style="text-align: right;">tomtag.count_twofolds(tagsA, tagsB, sizeA, sizeB, tcc)</div>
-    <div style="text-align: right;"><a href="https://github.com/Thomas-Jaeken/tomtag/blob/b5db3bea487373607edf7ae53540d5bfbe312b9e/correlation.c#L6" target="_blank">[source]</a></div>
+    <div style="text-align: right;">tomtag.get_twofold_tags(tagsA, tagsB, sizeA, sizeB, tcc)</div>
+    <div style="text-align: right;"><a href="https://github.com/Thomas-Jaeken/tomtag/blob/f658019ec15cd130b342bdb5ad32df4ebb4fe24c/correlation.c#L218" target="_blank">[source]</a></div>
     </div>
     <div style="height: 20px;"></div>
     <div>Count the number of entries of two arrays that fall within the coincidence window of eachother.</div>
@@ -39,21 +39,22 @@ tomtag.get_twofold_tags
         </li>
         <li><strong>Returns</strong>
             <ul style="list-style-type: none;">
-                <li>count (int): The number of tags that fall within the coincidence window of eachother between tagsA and tagsB.</li>
+                <li>coincidences: tuple
+                <ul style="list-style-type: none;"><li> The coinciding tags for each channel, in order.</li></ul>
+                </li>
             </ul>
         </li>
     </ul>
     <div style="height: 20px;"></div>
     <h2 style="border-bottom: 2px solid #000; padding-bottom: 10px;">Examples</h2>
 
-    <pre><code class="language-python">import tomtag as tt
-    import numpy as np
-    tagsA = np.array([12,679,1289,1487])
-    tagsB = np.array([20,409,1279,1887])
-    tcc = 15
-
-    counts = tt.count_twofolds(tagsA, tagsB, len(tagsA), len(tagsB), tcc)
-    assert counts==2
+    <pre><code class="language-python">&gt;&gt;&gt; import tomtag as tt
+    &gt;&gt;&gt; import numpy as np
+    &gt;&gt;&gt; tagsA = np.array([12,679,1289,1487])
+    &gt;&gt;&gt; tagsB = np.array([20,409,1279,1887])
+    &gt;&gt;&gt; tcc = 15
+    &gt;&gt;&gt; 
+    &gt;&gt;&gt; cc_tagsA, cc_tagsB = tt.get_twofold_tags(tagsA, tagsB, len(tagsA), len(tagsB), tcc)
     </code></pre>
 
     <script>hljs.highlightAll();</script></body>

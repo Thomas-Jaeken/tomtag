@@ -46,14 +46,14 @@ tomtag.count_twofolds
     <div style="height: 20px;"></div>
     <h2 style="border-bottom: 2px solid #000; padding-bottom: 10px;">Examples</h2>
 
-    <pre><code class="language-python">import tomtag as tt
-    import numpy as np
-    tagsA = np.array([12,679,1289,1487])
-    tagsB = np.array([20,409,1279,1887])
-    tcc = 15
-
-    counts = tt.count_twofolds(tagsA, tagsB, len(tagsA), len(tagsB), tcc)
-    assert counts==2
+    <pre><code class="language-python">&gt;&gt;&gt; import tomtag as tt
+    &gt;&gt;&gt; import numpy as np
+    &gt;&gt;&gt; tagsA = np.array([12,679,1289,1487])
+    &gt;&gt;&gt; tagsB = np.array([20,409,1279,1887])
+    &gt;&gt;&gt; tcc = 15
+    &gt;&gt;&gt; 
+    &gt;&gt;&gt; counts = tt.count_twofolds(tagsA, tagsB, len(tagsA), len(tagsB), tcc)
+    &gt;&gt;&gt; assert counts==2
     </code></pre>
 
     <script>hljs.highlightAll();</script></body>

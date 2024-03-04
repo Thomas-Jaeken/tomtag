@@ -1,11 +1,8 @@
-Welcome to MyProject's documentation!
+TomTag library documentation
 =====================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
-   introduction
-   usage
-   api
+    api

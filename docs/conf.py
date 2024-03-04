@@ -1,5 +1,6 @@
 extensions = [
     'sphinx_c_autodoc',
+    "sphinx.ext.autosummary",
     # other extensions...
 ]
 

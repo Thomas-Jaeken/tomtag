@@ -1,0 +1,14 @@
+tt
+==
+
+The following sections will detail the Python APIs for Tomtag. 
+
+``tt`` is the top level module from which all basic functions of TomTag can be directly imported.
+
+Available modules
+-----------------
+
+.. currentmodule:: Tomtag
+    
+.. autosummary::
+    :toctree: api

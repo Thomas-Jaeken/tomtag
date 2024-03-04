@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>tomtag.count_twofolds &#8212; Tomtag</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tomtag.get_twofold_tags" href="get_twofold_tags.html" />
+    <link rel="prev" title="Getting Started with Tomtag" href="../usage.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tomtag-count-twofolds">
+<h1>tomtag.count_twofolds<a class="headerlink" href="#tomtag-count-twofolds" title="Link to this heading">¶</a></h1>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+</head>
+<body>
+
+
+<div style="height: 20px;"></div>
+
+<div style="display: flex;
+justify-content: space-between;
+width: 100%;">
+<div style="text-align: right;">tomtag.count_twofolds(tagsA, tagsB, sizeA, sizeB, tcc)</div>
+<div style="text-align: right;"><a href="https://github.com/Thomas-Jaeken/tomtag/blob/b5db3bea487373607edf7ae53540d5bfbe312b9e/correlation.c#L6" target="_blank">[source]</a></div>
+</div>
+<div style="height: 20px;"></div>
+<div>Count the number of entries of two arrays that fall within the coincidence window of eachother.</div>
+<div style="height: 20px;"></div>
+<ul style="list-style-type: none;">
+    <li><strong>Parameters</a></strong>
+        <ul style="list-style-type: none;">
+            <li>tagsA: ndarray(dtype=int)
+            <ul style="list-style-type: none;"><li>timetags of the first channel.</li></ul></li>
+            <li>tagsB: ndarray(dtype=int)
+            <ul style="list-style-type: none;"><li>timetags of the second channel.</li></ul></li>
+            <li>sizeA: int
+            <ul style="list-style-type: none;"><li>number of timetags in the first channel.</li></ul></li>
+            <li>sizeB: int
+            <ul style="list-style-type: none;"><li>number of timetags in the second channel.</li></ul></li>
+            <li>tcc: int
+            <ul style="list-style-type: none;"><li>size of coincidence window, as multiple of tag precision.</li></ul></li>
+
+        </ul>
+    </li>
+    <li><strong>Returns</strong>
+        <ul style="list-style-type: none;">
+            <li>count (int): The number of tags that fall within the coincidence window of eachother between tagsA and tagsB.</li>
+        </ul>
+    </li>
+</ul>
+<div style="height: 20px;"></div>
+<h2 style="border-bottom: 2px solid #000; padding-bottom: 10px;">Examples</h2>
+
+<pre><code class="language-python">import tomtag as tt
+import numpy as np
+tagsA = np.array([12,679,1289,1487])
+tagsB = np.array([20,409,1279,1887])
+tcc = 15
+
+counts = tt.count_twofolds(tagsA, tagsB, len(tagsA), len(tagsB), tcc)
+assert counts==2
+</code></pre>
+
+<script>hljs.highlightAll();</script></body></section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Tomtag</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting Started with Tomtag</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tomtag.count_twofolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_twofold_tags.html">tomtag.get_twofold_tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_threefold_tags.html">tomtag.get_threefold_tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_fourfold_tags.html">tomtag.get_fourfold_tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">tomtag.histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sync_to_clock.html">tomtag.sync_to_clock</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../usage.html" title="previous chapter">Getting Started with Tomtag</a></li>
+      <li>Next: <a href="get_twofold_tags.html" title="next chapter">tomtag.get_twofold_tags</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/api/count_twofolds.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

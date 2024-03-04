@@ -10,5 +10,3 @@ Available modules
 
 .. currentmodule:: Tomtag
     
-.. autosummary::
-    :toctree: api

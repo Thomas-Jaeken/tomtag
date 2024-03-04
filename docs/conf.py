@@ -1,8 +1,6 @@
 extensions = [
-    'sphinx_c_autodoc',
     'sphinx.ext.autodoc',
     "sphinx.ext.autosummary",
-    "breathe"
     # other extensions...
 ]
 

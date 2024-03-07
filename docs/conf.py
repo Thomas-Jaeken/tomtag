@@ -4,6 +4,8 @@ extensions = [
     # other extensions...
 ]
 
+html_theme = "sphinx_rtd_theme"
+
 html_title = "Tomtag"
 
 

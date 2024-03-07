@@ -4,6 +4,8 @@ from setuptools import setup, Extension
 import numpy as np
 
 setup(
+    name='tomtag',
+    version='0.10',
     ext_modules=[
         Extension(
             name="tomtag",  # as it would be imported

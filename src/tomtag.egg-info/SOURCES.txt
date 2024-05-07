@@ -3,6 +3,7 @@ MANIFEST.in
 README.md
 pyproject.toml
 setup.py
+/tmp/pip-build-env-tmml454y/overlay/lib/python3.11/site-packages/numpy/core/include
 src/tomtag/correlation.c
 src/tomtag/correlation.h
 src/tomtag/correlation_module.c

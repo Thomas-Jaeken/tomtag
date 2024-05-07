@@ -1,4 +1,5 @@
 from distutils.core import setup, Extension
+import numpy as np
 
 def main():
     setup(
@@ -14,8 +15,10 @@ def main():
             Extension(
                 name='tomtag',
                 sources=[
+                    np.get_include(),
                     'src/tomtag/correlation_module.c',
                     'src/tomtag/correlation.c',
+                    'src/tomtag/correlation.h',
                 ],
             ),
         ],

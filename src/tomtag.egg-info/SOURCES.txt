@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.md
+pyproject.toml
+setup.py
+src/tomtag/correlation.c
+src/tomtag/correlation.h
+src/tomtag/correlation_module.c
+src/tomtag/correlation_module.pyi
+src/tomtag/example.py
+src/tomtag.egg-info/PKG-INFO
+src/tomtag.egg-info/SOURCES.txt
+src/tomtag.egg-info/dependency_links.txt
+src/tomtag.egg-info/top_level.txt

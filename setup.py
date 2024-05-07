@@ -1,21 +1,31 @@
-# setup.py
+from distutils.core import setup, Extension
 
-from setuptools import setup, Extension
-import numpy as np
+def main():
+    setup(
+        name='tomtag',
+        version='0.11',
+        description='time tag correlation library ',
+        long_description='This package holds several functions to process raw timetags that would be output by a tagger like e.g. a UQD Logic16.',
+        author='Faris Redza',
+        author_email='faris.redza1999@gmail.com',
+        url='https://github.com/FarisRedza/tomtag',
+        requires=['numpy'],
+        ext_modules=[
+            Extension(
+                name='tomtag',
+                sources=[
+                    'src/tomtag/correlation_module.c',
+                    'src/tomtag/correlation.c',
+                ],
+            ),
+        ],
+        classifiers=[
+            'Programming Language :: Python :: 3',
+            'License :: OSI Approved :: MIT License',
+            'Operating System :: OS Independent',
+        ],
+        include_dirs='src/tomtag'
+    )
 
-setup(
-    name='tomtag',
-    version='0.10',
-    ext_modules=[
-        Extension(
-            name="tomtag",  # as it would be imported
-            # may include packages/namespaces separated by `.`
-
-            # all sources are compiled into a single binary file
-            sources=["correlation_module.c", "correlation.c"],
-            include_dirs=[np.get_include(),
-                "/Users/thomasjaeken/Desktop/school/PhD/timetagging/tomtag/"
-                ]
-        ),
-    ]
-)
+if __name__ == '__main__':
+    main()

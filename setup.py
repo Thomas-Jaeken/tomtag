@@ -14,7 +14,6 @@ tomtag_module = Extension(
     ]
 )
 
-
 def main():
     setup(
         name='tomtag',
@@ -32,6 +31,7 @@ def main():
             'Operating System :: OS Independent',
         ],
     )
+
 
 if __name__ == '__main__':
     main()

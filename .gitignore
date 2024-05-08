@@ -2,3 +2,5 @@ example_from_file/
 *.egg-info/
 build/
 dist/
+.venv/
+.conda/

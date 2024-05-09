@@ -11,8 +11,7 @@ https://github.com/Thomas-Jaeken/tomtag
 ```
 pip install tomtag
 ```
-This should build on all OS, but if for some reason you want to compile it yourself, clone this repo and execute these: 
+This should build on all OS, but if for some reason you want to compile it yourself, clone this repo and execute: 
 ```
-python setup.py sdist bdist_wheel
-pip install dist/tomtag-0.6.tar.gz
+pip install .
 ```

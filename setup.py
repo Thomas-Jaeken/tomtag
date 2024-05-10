@@ -15,5 +15,6 @@ setup_args = dict(
             ],
         )
     ],
+    package_data={"": ["*.h"]}
 )
 setup(**setup_args)

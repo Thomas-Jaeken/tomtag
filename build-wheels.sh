@@ -10,12 +10,14 @@ function repair_wheel {
     fi
 }
 
+/opt/python/cp38*/bin/python -m build -s
+
 # Compile wheels
-for PYBIN in /opt/python/*/bin; do
-    "${PYBIN}/python" -m build
+for PYBIN in /opt/python/cp3[89]*/bin /opt/python/cp31*/bin; do
+    "${PYBIN}/python" -m build -w
 done
 
-# Bundle external shared libraries into the wheels
-for whl in wheelhouse/*.whl; do
-    repair_wheel "$whl"
-done
+# # Bundle external shared libraries into the wheels
+# for whl in dist/*.whl; do
+#     repair_wheel "$whl"
+# done

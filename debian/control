@@ -2,7 +2,7 @@ Source: tomtag
 Section: unknown
 Priority: optional
 Maintainer: Faris Redza <faris.redza1999@gmail.com>
-Build-Depends: debhelper-compat (= 13), dh-python, python3-all
+Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.5.0
 Homepage: https://github.com/Thomas-Jaeken/tomtag
 X-Python3-Version: >= 3.8
@@ -10,7 +10,7 @@ X-Python3-Version: >= 3.8
 Package: python3-tomtag
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${python3:Depends}
+Depends: python3-numpy, ${misc:Depends}, ${python3:Depends}
 Description: Package to identify correlated single photon detection events
  This package holds several functions to process raw
  timetags that would be output by a tagger like e.g.

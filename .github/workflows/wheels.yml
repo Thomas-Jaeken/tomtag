@@ -13,13 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-
-      - name: Install cibuildwheel
-        run: python3 -m pip install cibuildwheel==2.18.0
-
       - name: Build wheels
-        run: python3 -m cibuildwheel --output-dir wheelhouse
+        uses: pypa/cibuildwheel@v2.18.0
 
       - uses: actions/upload-artifact@v4
         with:

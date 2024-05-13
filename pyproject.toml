@@ -25,5 +25,5 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/Thomas-Jaeken/tomtag"
 Documentation = "https://tomtag.readthedocs.io"
-Repository = "hhttps://github.com/Thomas-Jaeken/tomtag.git"
+Repository = "https://github.com/FarisRedza/tomtag.git"
 "Bug Tracker" = "https://github.com/Thomas-Jaeken/tomtag/issues"

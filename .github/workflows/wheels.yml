@@ -32,4 +32,4 @@ jobs:
       - name: Release wheels
         uses: softprops/action-gh-release@v1
         with:
-          files: ./wheelhouse*.whl
+          files: ./wheelhouse/*.whl

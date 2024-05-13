@@ -3,7 +3,7 @@
 #include <math.h>
 #include "correlation.h"
 
-int count(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc)
+int count_twofolds(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc)
 {
     int counts = 0;
     int iA = 0;
@@ -135,7 +135,7 @@ long long int spread3(long long int a, long long int b, long long int c)
     return result;
 }
 
-int get_fourfolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c, long long int *inds_d)
+int get_fourfolds_tags(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, const long long int *tagsD, int sizeA, int sizeB, int sizeC, int sizeD, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c, long long int *inds_d)
 {
     int counts = 0;
     int iA = 0;
@@ -178,7 +178,7 @@ int get_fourfolds(const long long int *tagsA, const long long int *tagsB, const 
     return counts;
 }
 
-int get_threefolds(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, int sizeA, int sizeB, int sizeC, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c)
+int get_threefolds_tags(const long long int *tagsA, const long long int *tagsB, const long long int *tagsC, int sizeA, int sizeB, int sizeC, int tcc, long long int *inds_a, long long int *inds_b, long long int *inds_c)
 {
     int counts = 0;
     int iA = 0;
@@ -215,7 +215,7 @@ int get_threefolds(const long long int *tagsA, const long long int *tagsB, const
     return counts;
 }
 
-int get_twofolds(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int *inds_a, long long int *inds_b)
+int get_twofold_tags(const long long int *tagsA, const long long int *tagsB, int sizeA, int sizeB, int tcc, long long int *inds_a, long long int *inds_b)
 {
     int counts = 0;
     int iA = 0;
@@ -255,7 +255,7 @@ void histogram(const long long int *tagsA, const long long int *tagsB, int sizeA
         {
             temp_B_shifted[j] = tagsB[j] + delaysweep[i];
         }
-        hist_data[i] = count(tagsA, temp_B_shifted, sizeA, sizeB, tcc);
+        hist_data[i] = count_twofolds(tagsA, temp_B_shifted, sizeA, sizeB, tcc);
         free(temp_B_shifted);
     }
     // the output is written into the hist_data variable

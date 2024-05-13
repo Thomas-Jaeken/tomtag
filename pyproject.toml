@@ -3,8 +3,8 @@ requires = ["setuptools", "numpy"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tomtag-test-package"
-version = "0.12"
+name = "tomtag"
+version = "0.11"
 dependencies = [
   "numpy",
 ]
@@ -25,5 +25,5 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/Thomas-Jaeken/tomtag"
 Documentation = "https://tomtag.readthedocs.io"
-Repository = "https://github.com/FarisRedza/tomtag.git"
+Repository = "https://github.com/Thomas-Jaeken/tomtag.git"
 "Bug Tracker" = "https://github.com/Thomas-Jaeken/tomtag/issues"

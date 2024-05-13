@@ -1,11 +1,16 @@
-import tomtag as tt 
+import tomtag as tt
 import numpy as np
 
-tcc = 3
-data_a = np.array([1,50,55,164])
-data_b = np.array([2,56,15,194])
+tagsA = np.array([12,679,1289,1487])
+tagsB = np.array([20,409,1279,1887])
+tcc = 15
 
-# counts, inds_a, inds_b = tt.get_cc(data_a,data_b,len(data_a),len(data_b),tcc)
-counts, inds_a, inds_b = tt.count(data_a,data_b,len(data_a),len(data_b),tcc)
+counts = tt.count_twofolds(
+    tagsA,
+    tagsB,
+    len(tagsA),
+    len(tagsB),
+    tcc
+)
 
-assert counts == tt.count(data_a,data_b,len(data_a),len(data_b),tcc)
+assert counts==2 

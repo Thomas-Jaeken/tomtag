@@ -15,3 +15,11 @@ This should build on all OS, but if for some reason you want to compile it yours
 ```
 pip install .
 ```
+This will compile the package from source and install it. To compile the package without installing, execute:
+```
+python3 -m build
+```
+This will produce a .whl file in the dist directory. This file can then be installed by executing
+```
+pip install dist/*.whl
+```

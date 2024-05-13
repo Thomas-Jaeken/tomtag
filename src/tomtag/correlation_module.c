@@ -15,7 +15,7 @@ static PyObject *count_wrapper(PyObject *self, PyObject *args)
     long long int *tagsA = (long long int *)PyArray_DATA(tagsA_obj);
     long long int *tagsB = (long long int *)PyArray_DATA(tagsB_obj);
 
-    int result = count(tagsA, tagsB, sizeA, sizeB, tcc);
+    int result = count_twofolds(tagsA, tagsB, sizeA, sizeB, tcc);
 
     return PyLong_FromLong(result);
 }
@@ -38,7 +38,7 @@ static PyObject *get_twofold_tags_wrapper(PyObject *self, PyObject *args)
     long long int *inds_b = (long long int *)malloc(sizeB * sizeof(long long int));
     
     // filter out the cc
-    int count = get_twofolds(tagsA, tagsB, sizeA, sizeB, tcc, inds_a, inds_b);
+    int count = get_twofold_tags(tagsA, tagsB, sizeA, sizeB, tcc, inds_a, inds_b);
     
     // Convert indices array to Python object
     PyObject *cc_obj_a = PyList_New(count);
@@ -76,7 +76,7 @@ static PyObject *get_threefold_tags_wrapper(PyObject *self, PyObject *args)
     long long int *inds_a = (long long int *)malloc(sizeA * sizeof(long long int));
     long long int *inds_b = (long long int *)malloc(sizeB * sizeof(long long int));
     long long int *inds_c = (long long int *)malloc(sizeC * sizeof(long long int));
-    int count = get_threefolds(tagsA, tagsB, tagsC, sizeA, sizeB, sizeC, tcc, inds_a, inds_b, inds_c);
+    int count = get_threefolds_tags(tagsA, tagsB, tagsC, sizeA, sizeB, sizeC, tcc, inds_a, inds_b, inds_c);
 
     // Convert indices array to Python object
     PyObject *cc_obj_a = PyList_New(count);
@@ -125,7 +125,7 @@ static PyObject *get_fourfold_tags_wrapper(PyObject *self, PyObject *args)
     long long int *inds_d = (long long int *)malloc(sizeD * sizeof(long long int));
 
     // filter out the cc
-    int count = get_fourfolds(tagsA, tagsB, tagsC, tagsD, sizeA, sizeB, sizeC, sizeD, tcc, inds_a, inds_b, inds_c, inds_d);
+    int count = get_fourfolds_tags(tagsA, tagsB, tagsC, tagsD, sizeA, sizeB, sizeC, sizeD, tcc, inds_a, inds_b, inds_c, inds_d);
     
     // Convert indices array to Python object
     PyObject *cc_obj_a = PyList_New(count);

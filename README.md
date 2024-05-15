@@ -11,8 +11,15 @@ https://github.com/Thomas-Jaeken/tomtag
 ```
 pip install tomtag
 ```
-This should build on all OS, but if for some reason you want to compile it yourself, clone this repo and execute these: 
+This should build on all OS, but if for some reason you want to compile it yourself, clone this repo and execute: 
 ```
-python setup.py sdist bdist_wheel
-pip install dist/tomtag-0.6.tar.gz
+pip install .
+```
+This will compile the package from source and install it. To compile the package without installing, execute:
+```
+python3 -m build
+```
+This will produce a .whl file in the dist directory. This file can then be installed by executing
+```
+pip install dist/*.whl
 ```

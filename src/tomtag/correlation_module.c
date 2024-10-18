@@ -66,7 +66,7 @@ static PyObject *get_twofold_tags_T3_wrapper(PyObject *self, PyObject *args)
     int sizeA, sizeB, tcc;
 
     // read in the python arguments
-    if (!PyArg_ParseTuple(args, "OOOOiii", &tagsA_obj, &tagsB_obj, &d_tagsA_obj, &d_tagsB_obj &sizeA, &sizeB, &tcc))
+    if (!PyArg_ParseTuple(args, "OOOOiii", &tagsA_obj, &tagsB_obj, &d_tagsA_obj, &d_tagsB_obj, &sizeA, &sizeB, &tcc))
         return NULL;
 
     // format them into C types

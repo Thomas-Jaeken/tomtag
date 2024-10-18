@@ -60,6 +60,48 @@ static PyObject *get_twofold_tags_wrapper(PyObject *self, PyObject *args)
     return resultTuple;
 }
 
+static PyObject *get_twofold_tags_T3_wrapper(PyObject *self, PyObject *args)
+{
+    PyObject *tagsA_obj, *tagsB_obj, *d_tagsA_obj, *d_tagsB_obj;
+    int sizeA, sizeB, tcc;
+
+    // read in the python arguments
+    if (!PyArg_ParseTuple(args, "OOOOiii", &tagsA_obj, &tagsB_obj, &d_tagsA_obj, &d_tagsB_obj &sizeA, &sizeB, &tcc))
+        return NULL;
+
+    // format them into C types
+    long long int *tagsA = (long long int *)PyArray_DATA(tagsA_obj);
+    long long int *tagsB = (long long int *)PyArray_DATA(tagsB_obj);
+    long long int *d_tagsA = (long long int *)PyArray_DATA(d_tagsA_obj);
+    long long int *d_tagsB = (long long int *)PyArray_DATA(d_tagsB_obj);
+
+    // pre-allocate space for the cc times
+    long long int *inds_a = (long long int *)malloc(sizeA * sizeof(long long int));
+    long long int *inds_b = (long long int *)malloc(sizeB * sizeof(long long int));
+    
+    // filter out the cc
+    int count = get_twofolds(tagsA, tagsB, sizeA, sizeB, tcc, inds_a, inds_b);
+    
+    // Convert indices array to Python object
+    PyObject *cc_obj_a = PyList_New(count);
+    PyObject *cc_obj_b = PyList_New(count);
+    int i = 0;
+    for (i = 0; i < count; i++)
+    {
+        PyList_SET_ITEM(cc_obj_a, i, PyLong_FromLong(d_tagsA[inds_a[i]]));
+        PyList_SET_ITEM(cc_obj_b, i, PyLong_FromLong(d_tagsB[inds_b[i]]));
+    }
+
+    // Free memory allocated for indices array
+    free(inds_a);
+    free(inds_b);
+
+    // Return a tuple containing the indices array and the count
+    PyObject *resultTuple = PyTuple_Pack(2,  cc_obj_a, cc_obj_b);
+
+    return resultTuple;
+}
+
 static PyObject *get_threefold_tags_wrapper(PyObject *self, PyObject *args)
 {
     PyObject *tagsA_obj, *tagsB_obj, *tagsC_obj;
@@ -216,6 +258,7 @@ static PyObject *sync_wrapper(PyObject *self, PyObject *args)
 static PyMethodDef module_methods[] = {
     {"count_twofolds", count_wrapper, METH_VARARGS, "Calculate number of twofolds"},
     {"get_twofold_tags", get_twofold_tags_wrapper, METH_VARARGS, "find correlated timetags between 2 channels"},
+    {"get_twofold_tags_T3", get_twofold_tags_T3_wrapper, METH_VARARGS, "find sync offset of coincidences between 2 channels"},
     {"get_threefold_tags", get_threefold_tags_wrapper, METH_VARARGS, "find correlated timetags between 3 channels"},
     {"get_fourfold_tags", get_fourfold_tags_wrapper, METH_VARARGS, "find correlated timetags between 4 channels"},
     {"histogram", histogram_wrapper, METH_VARARGS, "construct histogram"},

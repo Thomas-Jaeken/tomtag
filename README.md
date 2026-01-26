@@ -16,3 +16,7 @@ This should build on all OS, but if for some reason you want to compile it yours
 python setup.py sdist bdist_wheel
 pip install dist/tomtag-0.6.tar.gz
 ```
+NOTE: for python3.13 when compiling with gcc there is a warning upon compilation, but this can be circumvented by running:
+```
+CFLAGS="-Wno-error=incompatible-pointer-types" pip install tomtag
+```
